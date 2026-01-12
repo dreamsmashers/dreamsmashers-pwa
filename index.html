@@ -20,29 +20,76 @@
   <!-- MAIN APP -->
   <div id="app" hidden>
     <header>
-      <h1>DreamSmashers</h1>
+      <h1 class="app-logo">🎮 DreamSmashers</h1>
+      <p class="app-tagline">Eat. Play. Smash.</p>
     </header>
 
-    <nav>
-      <button onclick="showSection('menu')">Menu</button>
-      <button onclick="showSection('offers')">Offers</button>
-      <button onclick="showSection('events')">Events</button>
+    <!-- IN-GAME NAV MENU -->
+    <nav class="arcade-nav">
+      <button onclick="showSection('menu')" class="arcade-btn">MENU</button>
+      <button onclick="showSection('offers')" class="arcade-btn">OFFERS</button>
+      <button onclick="showSection('events')" class="arcade-btn">EVENTS</button>
+      <button onclick="showSection('battlepass')" class="arcade-btn">BATTLEPASS</button>
+      <button onclick="showSection('calories')" class="arcade-btn">CALORIES & ALLERGENS</button>
     </nav>
 
     <main>
       <section id="menu">
         <h2>Menu</h2>
-        <p>Food & drinks coming soon...</p>
+        <div class="cards">
+          <div class="card">
+            <h3>Classic Burger</h3>
+            <p>Juicy beef patty, cheddar, lettuce & tomato</p>
+            <p class="price">£6.99</p>
+          </div>
+          <div class="card">
+            <h3>Arcade Fries</h3>
+            <p>Crispy fries with neon ketchup</p>
+            <p class="price">£3.50</p>
+          </div>
+          <div class="card">
+            <h3>Power-Up Shake</h3>
+            <p>Chocolate, strawberry or vanilla</p>
+            <p class="price">£4.00</p>
+          </div>
+        </div>
       </section>
 
       <section id="offers" hidden>
         <h2>Offers</h2>
-        <p>Happy Hour • Student Nights</p>
+        <ul>
+          <li>Happy Hour: 5–7pm, 50% off Arcade Drinks</li>
+          <li>Student Night: Show ID, get free fries</li>
+          <li>Weekend Tournament Bonus: Free Power-Up Shake</li>
+        </ul>
       </section>
 
       <section id="events" hidden>
         <h2>Events</h2>
-        <p>Weekly Smash Bros Tournament</p>
+        <ul>
+          <li>Friday Night: Smash Bros Tournament</li>
+          <li>Saturday: Retro Game Marathon</li>
+          <li>Sunday: VR Racing League</li>
+        </ul>
+      </section>
+
+      <section id="battlepass" hidden>
+        <h2>Battlepass</h2>
+        <ul>
+          <li>Level 1: Welcome Pack - Free fries</li>
+          <li>Level 2: Gamer Boost - Free Power-Up Shake</li>
+          <li>Level 3: Arcade Master - 10% off next meal</li>
+        </ul>
+        <p>Earn points by visiting, playing, and ordering. Level up for rewards!</p>
+      </section>
+
+      <section id="calories" hidden>
+        <h2>Calories & Allergens</h2>
+        <ul>
+          <li>Classic Burger: 650 kcal, contains gluten & dairy</li>
+          <li>Arcade Fries: 350 kcal, gluten-free</li>
+          <li>Power-Up Shake: 450 kcal, contains dairy</li>
+        </ul>
       </section>
     </main>
   </div>
