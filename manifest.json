@@ -1,11 +1,11 @@
 {
   "name": "DreamSmashers",
-  "short_name": "DSApp",
+  "short_name": "DreamSmashers",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#0ff",
-  "description": "Retro gaming themed restaurant app with menus, events, and Battle Pass.",
+  "background_color": "#0b0b0b",
+  "theme_color": "#ff2d95",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "icon-192.png",
