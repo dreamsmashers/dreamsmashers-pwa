@@ -26,7 +26,6 @@ body {
   height: 100%;
 }
 
-/* LOGO */
 .logo {
   font-size: 3rem;
   z-index: 2;
@@ -114,6 +113,13 @@ body {
   text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc;
 }
 
+/* SECTION BACKGROUNDS */
+section#menu { background: linear-gradient(135deg, #000000, #111111); }
+section#offers { background: linear-gradient(135deg, #111100, #333300); }
+section#events { background: linear-gradient(135deg, #001111, #003333); }
+section#battlepass { background: linear-gradient(135deg, #110011, #330033); }
+section#calories { background: linear-gradient(135deg, #111111, #222222); }
+
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -129,6 +135,14 @@ body {
   padding: 1rem;
   width: 180px;
   text-align: center;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+.card:hover {
+  background: #00ffcc;
+  color: black;
+  text-shadow: 0 0 10px #00ffcc;
 }
 
 .card h3 {
@@ -160,4 +174,50 @@ section li {
   border-radius: 6px;
   padding: 0.8rem;
   margin-bottom: 0.5rem;
+}
+
+/* CART PREVIEW */
+#cart {
+  margin-top: 1rem;
+  border: 2px solid #00ffcc;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  background: #111;
+}
+
+#cart ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#cart button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #00ffcc;
+  border-radius: 6px;
+  background: none;
+  color: #00ffcc;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* BATTLEPASS XP BAR */
+#xp-container {
+  width: 90%;
+  max-width: 400px;
+  height: 20px;
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  background: #111;
+  margin-top: 0.5rem;
+}
+
+#xp-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00ffcc, #ff00ff);
+  border-radius: 8px;
+  transition: width 0.5s;
 }
