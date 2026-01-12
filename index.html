@@ -1,11 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DreamSmashers</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+</head>
 <body>
+
   <!-- WELCOME SCREEN -->
   <div id="welcome-screen">
+    <canvas id="grid-canvas"></canvas>
     <h1 class="logo">🎮 DREAMSMASHERS</h1>
     <p class="tagline">EAT • PLAY • SMASH</p>
     <button id="start-btn">▶ PRESS START</button>
   </div>
-  <audio id="start-sound" src="start-beep.mp3" autoplay loop></audio>
 
   <!-- MAIN APP -->
   <div id="app" hidden>
@@ -37,5 +47,5 @@
     </main>
   </div>
 
-  <script src="app.js"></script>
 </body>
+</html>
