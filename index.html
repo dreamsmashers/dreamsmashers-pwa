@@ -1,9 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>DreamSmashers</title>
-</head>
 <body>
-  DreamSmashers PWA
+  <!-- WELCOME SCREEN -->
+  <div id="welcome-screen">
+    <h1 class="logo">🎮 DREAMSMASHERS</h1>
+    <p class="tagline">EAT • PLAY • SMASH</p>
+    <button id="start-btn">▶ PRESS START</button>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" hidden>
+    <header>
+      <h1>DreamSmashers</h1>
+    </header>
+
+    <nav>
+      <button onclick="showSection('menu')">Menu</button>
+      <button onclick="showSection('offers')">Offers</button>
+      <button onclick="showSection('events')">Events</button>
+    </nav>
+
+    <main>
+      <section id="menu">
+        <h2>Menu</h2>
+        <p>Food & drinks coming soon...</p>
+      </section>
+
+      <section id="offers" hidden>
+        <h2>Offers</h2>
+        <p>Happy Hour • Student Nights</p>
+      </section>
+
+      <section id="events" hidden>
+        <h2>Events</h2>
+        <p>Weekly Smash Bros Tournament</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
 </body>
-</html>
