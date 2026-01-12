@@ -1,75 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DreamSmashers</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>DreamSmashers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <!-- Opening Screen -->
-    <div id="opening-screen">
-        <h1 class="retro-title">DreamSmashers</h1>
-        <button id="press-start">Press Start</button>
-        <div id="falling-sprites"></div>
+
+<!-- OPENING SCREEN -->
+<div id="opening-screen" class="screen active">
+  <h1 class="logo">DREAMSMASHERS</h1>
+
+  <button id="press-start" class="press-start">
+    ▶ PRESS START
+  </button>
+
+  <div id="falling-container"></div>
+</div>
+
+<!-- MAIN APP SCREEN -->
+<div id="main-screen" class="screen">
+
+  <!-- CART ICON -->
+  <div id="cart-icon">🛒</div>
+
+  <!-- CART PANEL -->
+  <div id="cart-panel">
+    <h2>Inventory</h2>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <span id="cart-total">£0.00</span>
+      <button id="close-cart">Close</button>
     </div>
+    <div id="cart-bin">🗑 Drop Here</div>
+  </div>
 
-    <!-- Second Page -->
-    <div id="main-page" class="hidden">
-        <div id="menu-icons">
-            <div class="icon" data-menu="drinks">Drinks</div>
-            <div class="icon" data-menu="food">Food</div>
-            <div class="icon" data-menu="events">Events</div>
-            <div class="icon" data-menu="battlepass">Battle Pass</div>
-            <div class="icon" data-menu="nutrients">Nutrients & Calories</div>
-            <div class="icon" data-menu="allergens">Allergens</div>
-        </div>
+  <!-- ICON GRID -->
+  <div class="icon-grid">
+    <button class="icon-btn" data-section="drinks">🍹 Drinks</button>
+    <button class="icon-btn" data-section="food">🍔 Food</button>
+    <button class="icon-btn" data-section="events">🎮 Events</button>
+    <button class="icon-btn" data-section="battlepass">⚔ Battle Pass</button>
+    <button class="icon-btn" data-section="nutrition">📊 Nutrition</button>
+    <button class="icon-btn" data-section="allergens">⚠ Allergens</button>
+  </div>
 
-        <!-- Disclaimers -->
-        <div id="menu-disclaimer" class="overlay hidden">
-            <p>Please note: You can view allergens for all items in the ⚠️ Allergens section. By continuing, you acknowledge that you understand where to find this information.</p>
-            <button id="agree-btn">I Agree</button>
-            <button id="cancel-btn">Cancel</button>
-        </div>
+</div>
 
-        <!-- Menus -->
-        <div id="menu-panels">
-            <div id="drinks-menu" class="menu-panel hidden"></div>
-            <div id="food-menu" class="menu-panel hidden"></div>
-        </div>
+<!-- MODAL -->
+<div id="modal" class="hidden">
+  <div id="modal-content"></div>
+  <button id="modal-close">Close</button>
+</div>
 
-        <!-- Events Panel -->
-        <div id="events-panel" class="hidden"></div>
-
-        <!-- Battle Pass -->
-        <div id="battlepass-panel" class="hidden">
-            <h2>Battle Pass</h2>
-            <div id="xp-bar">
-                <div id="xp-fill"></div>
-                <span id="xp-tooltip"></span>
-            </div>
-            <div id="rewards-grid"></div>
-        </div>
-
-        <!-- Nutrients & Calories -->
-        <div id="nutrients-panel" class="hidden"></div>
-
-        <!-- Allergens -->
-        <div id="allergens-panel" class="hidden"></div>
-
-        <!-- Skyrim-Style Cart -->
-        <div id="cart-icon"></div>
-        <div id="cart-panel" class="hidden">
-            <div id="cart-header">
-                <h3>Your Cart</h3>
-                <div id="cart-close">X</div>
-            </div>
-            <div id="cart-items"></div>
-            <div id="cart-total"></div>
-            <div id="cart-trash">🗑️ Trash</div>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+<script src="app.js" defer></script>
 </body>
 </html>
