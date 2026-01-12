@@ -1,36 +1,3 @@
-// RETRO GRID ANIMATION
-const canvas = document.getElementById("grid-canvas");
-const ctx = canvas.getContext("2d");
-let w, h;
-function resizeCanvas(){
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-let lines = [];
-for(let i=0;i<30;i++){
-  lines.push({y:i*30});
-}
-
-function drawGrid(){
-  ctx.fillStyle = 'black';
-  ctx.fillRect(0,0,w,h);
-  ctx.strokeStyle = '#00ffcc';
-  ctx.lineWidth = 1;
-  for(let i=0;i<lines.length;i++){
-    lines[i].y += 2;
-    if(lines[i].y > h) lines[i].y = 0;
-    ctx.beginPath();
-    ctx.moveTo(0, lines[i].y);
-    ctx.lineTo(w, lines[i].y);
-    ctx.stroke();
-  }
-  requestAnimationFrame(drawGrid);
-}
-drawGrid();
-
 // START BUTTON LOGIC
 const startBtn = document.getElementById("start-btn");
 const welcomeScreen = document.getElementById("welcome-screen");
@@ -47,8 +14,10 @@ function showSection(id){
     s.hidden = s.id !== id;
   });
 
-  // Award XP for visiting sections (except Battlepass itself)
+  // Award XP for visiting sections (except Battlepass)
   if(id !== 'battlepass') addXP(10);
+
+  createParticlesForSection(id);
 }
 
 // CART SYSTEM
@@ -79,7 +48,7 @@ function checkout(){
   updateCart();
 }
 
-// BATTLEPASS SYSTEM
+// BATTLEPASS XP SYSTEM
 let xp = 0;
 let level = 1;
 function addXP(amount){
@@ -92,4 +61,18 @@ function addXP(amount){
   }
   const xpBar = document.getElementById("xp-bar");
   xpBar.style.width = Math.min((xp / (level*50))*100, 100) + "%";
+}
+
+// NEON PARTICLE EFFECT PER SECTION
+function createParticlesForSection(id){
+  const section = document.getElementById(id);
+  // Remove old particles
+  section.querySelectorAll(".neon-particle").forEach(p => p.remove());
+  for(let i=0;i<50;i++){
+    const p = document.createElement("div");
+    p.className = "neon-particle";
+    p.style.left = Math.random()*section.offsetWidth+"px";
+    p.style.top = Math.random()*section.offsetHeight+"px";
+    section.appendChild(p);
+  }
 }
