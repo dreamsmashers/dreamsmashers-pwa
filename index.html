@@ -34,27 +34,62 @@
     </nav>
 
     <main>
+      <!-- MENU SECTION -->
       <section id="menu">
         <h2>Menu</h2>
         <div class="cards">
-          <div class="card">
+          <div class="card" onclick="addToCart('Classic Burger', 6.99)">
             <h3>Classic Burger</h3>
             <p>Juicy beef patty, cheddar, lettuce & tomato</p>
             <p class="price">£6.99</p>
           </div>
-          <div class="card">
+          <div class="card" onclick="addToCart('Arcade Fries', 3.50)">
             <h3>Arcade Fries</h3>
             <p>Crispy fries with neon ketchup</p>
             <p class="price">£3.50</p>
           </div>
-          <div class="card">
+          <div class="card" onclick="addToCart('Power-Up Shake', 4.00)">
             <h3>Power-Up Shake</h3>
             <p>Chocolate, strawberry or vanilla</p>
             <p class="price">£4.00</p>
           </div>
+          <div class="card" onclick="addToCart('Pixel Pizza', 5.99)">
+            <h3>Pixel Pizza</h3>
+            <p>Mini cheese & pepperoni pizza, extra cheese</p>
+            <p class="price">£5.99</p>
+          </div>
+          <div class="card" onclick="addToCart('Turbo Tacos', 6.50)">
+            <h3>Turbo Tacos</h3>
+            <p>3 tacos with spicy beef, neon salsa</p>
+            <p class="price">£6.50</p>
+          </div>
+          <div class="card" onclick="addToCart('Health Potion Salad', 4.99)">
+            <h3>Health Potion Salad</h3>
+            <p>Mixed greens, cherry tomatoes, XP-boost dressing</p>
+            <p class="price">£4.99</p>
+          </div>
+          <div class="card" onclick="addToCart('Boss-Level Burger', 8.99)">
+            <h3>Boss-Level Burger</h3>
+            <p>Double patty, bacon, secret sauce, stacked high</p>
+            <p class="price">£8.99</p>
+          </div>
+          <div class="card" onclick="addToCart('Snack Combo: Mana Pack', 6.50)">
+            <h3>Snack Combo: Mana Pack</h3>
+            <p>Fries + mini shake combo for energy</p>
+            <p class="price">£6.50</p>
+          </div>
+        </div>
+
+        <!-- CART PREVIEW -->
+        <div id="cart">
+          <h3>Cart Preview</h3>
+          <ul id="cart-items"></ul>
+          <p>Total: £<span id="cart-total">0.00</span></p>
+          <button onclick="checkout()">Checkout</button>
         </div>
       </section>
 
+      <!-- OFFERS SECTION -->
       <section id="offers" hidden>
         <h2>Offers</h2>
         <ul>
@@ -64,6 +99,7 @@
         </ul>
       </section>
 
+      <!-- EVENTS SECTION -->
       <section id="events" hidden>
         <h2>Events</h2>
         <ul>
@@ -73,22 +109,28 @@
         </ul>
       </section>
 
+      <!-- BATTLEPASS SECTION -->
       <section id="battlepass" hidden>
         <h2>Battlepass</h2>
-        <ul>
-          <li>Level 1: Welcome Pack - Free fries</li>
-          <li>Level 2: Gamer Boost - Free Power-Up Shake</li>
-          <li>Level 3: Arcade Master - 10% off next meal</li>
-        </ul>
-        <p>Earn points by visiting, playing, and ordering. Level up for rewards!</p>
+        <p>Level: <span id="bp-level">1</span></p>
+        <div id="xp-container">
+          <div id="xp-bar"></div>
+        </div>
+        <p>Earn points by ordering or visiting sections!</p>
       </section>
 
+      <!-- CALORIES & ALLERGENS -->
       <section id="calories" hidden>
         <h2>Calories & Allergens</h2>
         <ul>
           <li>Classic Burger: 650 kcal, contains gluten & dairy</li>
           <li>Arcade Fries: 350 kcal, gluten-free</li>
           <li>Power-Up Shake: 450 kcal, contains dairy</li>
+          <li>Pixel Pizza: 550 kcal, contains gluten & dairy</li>
+          <li>Turbo Tacos: 480 kcal, contains gluten</li>
+          <li>Health Potion Salad: 220 kcal, vegan</li>
+          <li>Boss-Level Burger: 900 kcal, contains gluten & dairy</li>
+          <li>Snack Combo: Mana Pack: 550 kcal, contains dairy & gluten</li>
         </ul>
       </section>
     </main>
