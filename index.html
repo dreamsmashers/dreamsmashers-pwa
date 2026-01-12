@@ -1,165 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DreamSmashers PWA</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamSmashers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-  <!-- WELCOME PAGE -->
-  <section id="welcome">
-    <h1>🎮 Welcome to DreamSmashers</h1>
-    <p>Press Start to Enter</p>
-    <button id="start-button">Start</button>
-  </section>
+    <div class="container">
+        <h1>DreamSmashers</h1>
+        <button id="startButton">Press Start</button>
 
-  <!-- MENU SECTION -->
-  <section id="menu" hidden>
-    <h2 class="menu-header">🍔 MENU</h2>
-
-    <!-- Opening message modal -->
-    <div id="menu-modal" class="menu-modal">
-      <div class="menu-modal-content">
-        <h3>Welcome to the Menu!</h3>
-        <p>All calorie and allergen information is available in the <strong>Nutrition & Allergens</strong> section.</p>
-        <p>Click below to proceed with ordering.</p>
-        <button id="menu-modal-close">Got it! Let's Order</button>
-      </div>
-    </div>
-
-    <div class="menu-grid">
-      <!-- Example Burger Items -->
-      <div class="menu-category">
-        <h3 class="category-title">Burgers</h3>
-        <div class="menu-item">
-          <div class="item-info">
-            <h4>Classic Burger</h4>
-            <p>Juicy beef patty, cheddar, lettuce & tomato</p>
-          </div>
-          <div class="item-price">
-            <p>£6.99</p>
-            <button onclick="addToCart('Classic Burger', 6.99)">Add</button>
-          </div>
+        <!-- Menu confirmation message -->
+        <div id="menuMessage" class="hidden">
+            <p>Menu items contain calories and allergens info, viewable when selecting an item.</p>
+            <button id="confirmMessage">I understand</button>
         </div>
-        <div class="menu-item">
-          <div class="item-info">
-            <h4>Boss-Level Burger</h4>
-            <p>Double patty, bacon, secret sauce, stacked high</p>
-          </div>
-          <div class="item-price">
-            <p>£8.99</p>
-            <button onclick="addToCart('Boss-Level Burger', 8.99)">Add</button>
-          </div>
+
+        <!-- Menu section -->
+        <div id="menuSection" class="hidden">
+            <h2>Menu</h2>
+            <div class="menu-item" data-name="Burger" data-price="5" data-calories="550" data-allergens="gluten, dairy">Burger - £5</div>
+            <div class="menu-item" data-name="Pizza" data-price="7" data-calories="700" data-allergens="gluten, dairy">Pizza - £7</div>
+            <div class="menu-item" data-name="Soda" data-price="2" data-calories="150" data-allergens="none">Soda - £2</div>
         </div>
-      </div>
-      <!-- Add Fries, Drinks, Combos similar to above -->
+
+        <!-- Battlepass section -->
+        <div id="battlepassSection" class="hidden">
+            <h2>Battlepass</h2>
+            <p>Complete challenges to earn rewards!</p>
+            <ul>
+                <li>Play 3 matches</li>
+                <li>Order 2 menu items</li>
+                <li>Check-in to an event</li>
+            </ul>
+        </div>
+
+        <!-- Events section -->
+        <div id="eventsSection" class="hidden">
+            <h2>Events</h2>
+            <p>Upcoming events and special promotions:</p>
+            <ul>
+                <li>Friday Night Tournament</li>
+                <li>Weekly Leaderboard Reward</li>
+            </ul>
+        </div>
+
+        <!-- Promotions / Notifications panel -->
+        <div id="notificationPanel" class="hidden"></div>
+
+        <!-- Floating cart -->
+        <div id="floatingCart" class="hidden">
+            <h2>Shopping Cart</h2>
+            <ul id="cartItems"></ul>
+            <p>Total: £<span id="cartTotal">0</span></p>
+        </div>
     </div>
 
-    <!-- Skyrim-style floating cart -->
-    <div id="skyrim-cart">
-      <h3>Inventory / Cart</h3>
-      <ul id="cart-items"></ul>
-      <p>Total: £<span id="cart-total">0.00</span></p>
-      <button onclick="checkout()">Checkout</button>
-    </div>
-  </section>
-
-  <!-- EVENTS SECTION -->
-  <section id="events" hidden>
-    <h2 class="events-header">🎉 EVENTS</h2>
-    <div class="events-list">
-      <div class="event-item">
-        <h3>BattlePass Boost Night</h3>
-        <p>Special XP multipliers & free power-ups!</p>
-      </div>
-      <div class="event-item">
-        <h3>Weekday Game Deal</h3>
-        <p>Free game session with any meal (Term time only)</p>
-      </div>
-      <div class="event-item">
-        <h3>Seasonal Mystery Event</h3>
-        <p>Rotating special challenges & surprises</p>
-      </div>
-      <div class="event-item">
-        <h3>Pokémon Go Adventure</h3>
-        <p>Join our augmented gaming event outdoors!</p>
-      </div>
-      <div class="event-item">
-        <h3>Board Game Night</h3>
-        <p>Classic and modern board games every week</p>
-      </div>
-      <!-- Add more events as needed -->
-    </div>
-  </section>
-
-  <!-- BATTLEPASS SECTION -->
-  <section id="battlepass" hidden>
-    <h2 class="bp-header">🛡️ BATTLEPASS</h2>
-    <p class="bp-level-display">Level: <span id="bp-level">1</span></p>
-
-    <!-- Side-scrollable rewards list -->
-    <div class="bp-rewards-container">
-      <div class="bp-rewards-list" id="bp-rewards-list">
-        <!-- Rewards populated by JS -->
-      </div>
-    </div>
-
-    <!-- XP bar -->
-    <div id="xp-container">
-      <div id="xp-bar"></div>
-    </div>
-
-    <!-- Optional neon particles -->
-    <div id="bp-particles"></div>
-  </section>
-
-  <!-- CALORIES & ALLERGENS SECTION -->
-  <section id="calories" hidden>
-    <h2 class="cal-header">🍽️ NUTRITION & ALLERGENS</h2>
-    <table class="cal-table">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Calories</th>
-          <th>Allergens</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Classic Burger 🍔</td>
-          <td>550 kcal</td>
-          <td>Gluten, Dairy</td>
-        </tr>
-        <tr>
-          <td>Boss-Level Burger 🍔</td>
-          <td>850 kcal</td>
-          <td>Gluten, Dairy, Egg</td>
-        </tr>
-        <tr>
-          <td>Arcade Fries 🍟</td>
-          <td>320 kcal</td>
-          <td>None</td>
-        </tr>
-        <tr>
-          <td>Power-Up Shake 🥤</td>
-          <td>250 kcal</td>
-          <td>Dairy</td>
-        </tr>
-        <tr>
-          <td>Level-Up Latte ☕</td>
-          <td>150 kcal</td>
-          <td>Dairy</td>
-        </tr>
-        <tr>
-          <td>Snack Combo: Mana Pack 🍔+🥤</td>
-          <td>600 kcal</td>
-          <td>Gluten, Dairy</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
