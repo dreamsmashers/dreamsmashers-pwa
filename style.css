@@ -1,387 +1,134 @@
-/* ====== GENERAL ====== */
 body {
-  margin: 0;
-  font-family: 'Courier New', monospace;
-  background: #111;
-  color: #fff;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2, h3, h4 {
-  margin: 0.5rem 0;
+.container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
 }
 
-/* ====== WELCOME PAGE ====== */
-#welcome {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: black;
+h1, h2 {
+    margin-bottom: 10px;
 }
 
-#welcome h1 {
-  font-size: 3rem;
-  color: #ff9900;
-  text-shadow: 0 0 15px #ff9900;
+/* Buttons */
+button {
+    background-color: #ff3c00;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 6px;
+    transition: 0.2s;
 }
 
-#welcome button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  background: none;
-  color: #00ffcc;
-  cursor: pointer;
-  text-shadow: 0 0 5px #00ffcc;
+button:hover {
+    background-color: #e63600;
 }
 
-#welcome button:hover {
-  background: #00ffcc;
-  color: black;
-}
-
-/* ====== MENU SECTION ====== */
-.menu-header {
-  text-align: center;
-  font-size: 2rem;
-  color: #00ffcc;
-  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-  margin-bottom: 1rem;
-}
-
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 0 1rem;
-}
-
-.category-title {
-  font-size: 1.5rem;
-  color: #ff00ff;
-  text-shadow: 0 0 5px #ff00ff;
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid #00ffcc;
-  padding-bottom: 0.3rem;
-  grid-column: 1/-1;
-}
-
+/* Menu items */
 .menu-item {
-  background: rgba(17,17,17,0.95);
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  padding: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.2s;
+    background-color: #333;
+    margin: 5px 0;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .menu-item:hover {
-  background: #00ffcc;
-  color: black;
-  transform: scale(1.05);
+    background-color: #444;
 }
 
-.item-info h4 {
-  margin: 0;
-  color: #00ffcc;
+/* Hidden elements */
+.hidden {
+    display: none;
 }
 
-.item-info p {
-  margin: 0.2rem 0;
-  font-size: 0.9rem;
+/* Floating cart button */
+#floatingCartButton {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ff3c00;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 1000;
 }
 
-.item-price {
-  margin-top: 0.5rem;
-  text-align: center;
+#floatingCartButton:hover {
+    background-color: #e63600;
 }
 
-.item-price p {
-  font-weight: bold;
-  color: #ff00ff;
+/* Floating cart panel */
+#floatingCart {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 300px;
+    max-height: 70%;
+    background-color: #222;
+    color: #fff;
+    box-shadow: -2px 0 15px rgba(0,0,0,0.6);
+    padding: 20px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    z-index: 999;
+    border-radius: 6px 0 0 6px;
+    cursor: grab;
 }
 
-.item-price button {
-  margin-top: 0.3rem;
-  padding: 0.3rem 0.6rem;
-  border: 2px solid #00ffcc;
-  border-radius: 6px;
-  background: none;
-  color: #00ffcc;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
+#floatingCart.active {
+    transform: translateX(0);
 }
 
-.item-price button:hover {
-  background: #00ffcc;
-  color: black;
+/* Cart content */
+#cartItems {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* ====== MENU MODAL ====== */
-.menu-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+#cartItems li {
+    padding: 8px 0;
+    border-bottom: 1px solid #444;
 }
 
-.menu-modal-content {
-  background: #111;
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  padding: 2rem;
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-  color: #00ffcc;
+/* Drag styling */
+#floatingCart.dragging {
+    cursor: grabbing;
 }
 
-.menu-modal-content h3 {
-  color: #ff00ff;
-  text-shadow: 0 0 5px #ff00ff;
-  margin-bottom: 1rem;
+/* Notifications panel */
+#notificationPanel {
+    position: fixed;
+    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #ff3c00;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 2000;
 }
 
-.menu-modal-content p {
-  margin-bottom: 1rem;
-}
-
-#menu-modal-close {
-  padding: 0.5rem 1rem;
-  border: 2px solid #00ffcc;
-  border-radius: 6px;
-  background: none;
-  color: #00ffcc;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.2s;
-}
-
-#menu-modal-close:hover {
-  background: #00ffcc;
-  color: black;
-}
-
-/* ====== SKYRIM-STYLE CART ====== */
-#skyrim-cart {
-  position: fixed;
-  top: 10%;
-  right: 1%;
-  width: 250px;
-  max-height: 70%;
-  background: rgba(20, 20, 20, 0.95);
-  border: 2px solid #00ffcc;
-  border-radius: 12px;
-  padding: 1rem;
-  overflow-y: auto;
-  z-index: 999;
-  font-family: 'Courier New', monospace;
-  color: #00ffcc;
-  box-shadow: 0 0 15px #00ffcc;
-}
-
-#skyrim-cart h3 {
-  text-align: center;
-  color: #ff00ff;
-  text-shadow: 0 0 5px #ff00ff;
-  margin-bottom: 0.5rem;
-}
-
-#skyrim-cart ul {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 0.5rem;
-}
-
-#skyrim-cart li {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.3rem 0;
-  border-bottom: 1px solid #00ffcc;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-#skyrim-cart li:hover {
-  background: #00ffcc;
-  color: black;
-  text-shadow: 0 0 5px #00ffcc;
-}
-
-#skyrim-cart button {
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.4rem;
-  border: 2px solid #00ffcc;
-  border-radius: 6px;
-  background: none;
-  color: #00ffcc;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#skyrim-cart button:hover {
-  background: #00ffcc;
-  color: black;
-}
-
-/* ====== EVENTS ====== */
-.events-header {
-  text-align: center;
-  font-size: 2rem;
-  color: #ff9900;
-  margin-bottom: 1rem;
-}
-
-.events-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0 1rem;
-}
-
-.event-item {
-  background: rgba(17,17,17,0.95);
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  padding: 0.8rem;
-  width: 250px;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.event-item:hover {
-  background: #00ffcc;
-  color: black;
-}
-
-/* ====== BATTLEPASS ====== */
-.bp-header {
-  text-align: center;
-  font-size: 2rem;
-  color: #ff9900;
-  text-shadow: 0 0 10px #ff9900, 0 0 20px #ff9900;
-  margin-bottom: 1rem;
-}
-
-.bp-level-display {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #00ffcc;
-  text-shadow: 0 0 5px #00ffcc;
-  margin-bottom: 1rem;
-}
-
-.bp-rewards-container {
-  width: 100%;
-  overflow-x: auto;
-  padding: 1rem 0;
-  margin-bottom: 1rem;
-}
-
-.bp-rewards-list {
-  display: flex;
-  gap: 1rem;
-  padding: 0 1rem;
-}
-
-.bp-reward {
-  flex: 0 0 auto;
-  width: 120px;
-  min-height: 150px;
-  background: rgba(17,17,17,0.9);
-  border: 2px solid #ff9900;
-  border-radius: 10px;
-  padding: 0.5rem;
-  text-align: center;
-  color: #00ffcc;
-  cursor: default;
-  transition: all 0.2s;
-}
-
-.bp-reward:hover {
-  background: #ff9900;
-  color: black;
-  text-shadow: 0 0 10px #ff9900;
-}
-
-.bp-reward h4 {
-  margin: 0.3rem 0;
-  font-size: 0.9rem;
-}
-
-.bp-reward p {
-  margin: 0.2rem 0;
-  font-size: 0.8rem;
-}
-
-/* XP BAR */
-#xp-container {
-  width: 90%;
-  max-width: 600px;
-  height: 25px;
-  border: 2px solid #00ffcc;
-  border-radius: 12px;
-  background: #111;
-  margin: 0 auto 1rem auto;
-  overflow: hidden;
-}
-
-#xp-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #00ffcc, #ff00ff);
-  border-radius: 12px;
-  transition: width 0.5s;
-}
-
-/* ====== CALORIES & ALLERGENS ====== */
-.cal-header {
-  text-align: center;
-  font-size: 2rem;
-  color: #00ffcc;
-  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
-  margin-bottom: 1rem;
-}
-
-.cal-table {
-  width: 90%;
-  max-width: 700px;
-  margin: 0 auto;
-  border-collapse: collapse;
-  background: rgba(17,17,17,0.95);
-  border: 2px solid #00ffcc;
-  border-radius: 10px;
-  overflow: hidden;
-  font-family: 'Courier New', monospace;
-}
-
-.cal-table th, .cal-table td {
-  padding: 0.8rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #00ffcc;
-  color: #ffffff;
-}
-
-.cal-table th {
-  background: #111;
-  color: #ff00ff;
-  text-shadow: 0 0 5px #ff00ff;
-}
-
-.cal-table tr:hover {
-  background: rgba(0, 255, 204, 0.2);
+#notificationPanel.show {
+    opacity: 1;
+    transform: translateX(50%) translateY(0);
 }
