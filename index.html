@@ -1,140 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DreamSmashers</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamSmashers PWA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- WELCOME PAGE -->
+  <section id="welcome">
+    <h1>🎮 Welcome to DreamSmashers</h1>
+    <p>Press Start to Enter</p>
+    <button id="start-button">Start</button>
+  </section>
 
-  <!-- WELCOME SCREEN -->
-  <div id="welcome-screen">
-    <canvas id="grid-canvas"></canvas>
-    <h1 class="logo">🎮 DREAMSMASHERS</h1>
-    <p class="tagline">EAT • PLAY • SMASH</p>
-    <button id="start-btn">▶ PRESS START</button>
-  </div>
+  <!-- MENU SECTION -->
+  <section id="menu" hidden>
+    <h2 class="menu-header">🍔 MENU</h2>
 
-  <!-- MAIN APP -->
-  <div id="app" hidden>
-    <header>
-      <h1 class="app-logo">🎮 DreamSmashers</h1>
-      <p class="app-tagline">Eat. Play. Smash.</p>
-    </header>
+    <!-- Opening message modal -->
+    <div id="menu-modal" class="menu-modal">
+      <div class="menu-modal-content">
+        <h3>Welcome to the Menu!</h3>
+        <p>All calorie and allergen information is available in the <strong>Nutrition & Allergens</strong> section.</p>
+        <p>Click below to proceed with ordering.</p>
+        <button id="menu-modal-close">Got it! Let's Order</button>
+      </div>
+    </div>
 
-    <!-- IN-GAME NAV MENU -->
-    <nav class="arcade-nav">
-      <button onclick="showSection('menu')" class="arcade-btn">MENU</button>
-      <button onclick="showSection('offers')" class="arcade-btn">OFFERS</button>
-      <button onclick="showSection('events')" class="arcade-btn">EVENTS</button>
-      <button onclick="showSection('battlepass')" class="arcade-btn">BATTLEPASS</button>
-      <button onclick="showSection('calories')" class="arcade-btn">CALORIES & ALLERGENS</button>
-    </nav>
-
-    <main>
-      <!-- MENU SECTION -->
-      <section id="menu">
-        <h2>Menu</h2>
-        <div class="cards">
-          <div class="card" onclick="addToCart('Classic Burger', 6.99)">
-            <h3>Classic Burger</h3>
+    <div class="menu-grid">
+      <!-- Example Burger Items -->
+      <div class="menu-category">
+        <h3 class="category-title">Burgers</h3>
+        <div class="menu-item">
+          <div class="item-info">
+            <h4>Classic Burger</h4>
             <p>Juicy beef patty, cheddar, lettuce & tomato</p>
-            <p class="price">£6.99</p>
           </div>
-          <div class="card" onclick="addToCart('Arcade Fries', 3.50)">
-            <h3>Arcade Fries</h3>
-            <p>Crispy fries with neon ketchup</p>
-            <p class="price">£3.50</p>
+          <div class="item-price">
+            <p>£6.99</p>
+            <button onclick="addToCart('Classic Burger', 6.99)">Add</button>
           </div>
-          <div class="card" onclick="addToCart('Power-Up Shake', 4.00)">
-            <h3>Power-Up Shake</h3>
-            <p>Chocolate, strawberry or vanilla</p>
-            <p class="price">£4.00</p>
-          </div>
-          <div class="card" onclick="addToCart('Pixel Pizza', 5.99)">
-            <h3>Pixel Pizza</h3>
-            <p>Mini cheese & pepperoni pizza, extra cheese</p>
-            <p class="price">£5.99</p>
-          </div>
-          <div class="card" onclick="addToCart('Turbo Tacos', 6.50)">
-            <h3>Turbo Tacos</h3>
-            <p>3 tacos with spicy beef, neon salsa</p>
-            <p class="price">£6.50</p>
-          </div>
-          <div class="card" onclick="addToCart('Health Potion Salad', 4.99)">
-            <h3>Health Potion Salad</h3>
-            <p>Mixed greens, cherry tomatoes, XP-boost dressing</p>
-            <p class="price">£4.99</p>
-          </div>
-          <div class="card" onclick="addToCart('Boss-Level Burger', 8.99)">
-            <h3>Boss-Level Burger</h3>
+        </div>
+        <div class="menu-item">
+          <div class="item-info">
+            <h4>Boss-Level Burger</h4>
             <p>Double patty, bacon, secret sauce, stacked high</p>
-            <p class="price">£8.99</p>
           </div>
-          <div class="card" onclick="addToCart('Snack Combo: Mana Pack', 6.50)">
-            <h3>Snack Combo: Mana Pack</h3>
-            <p>Fries + mini shake combo for energy</p>
-            <p class="price">£6.50</p>
+          <div class="item-price">
+            <p>£8.99</p>
+            <button onclick="addToCart('Boss-Level Burger', 8.99)">Add</button>
           </div>
         </div>
+      </div>
+      <!-- Add Fries, Drinks, Combos similar to above -->
+    </div>
 
-        <!-- CART PREVIEW -->
-        <div id="cart">
-          <h3>Cart Preview</h3>
-          <ul id="cart-items"></ul>
-          <p>Total: £<span id="cart-total">0.00</span></p>
-          <button onclick="checkout()">Checkout</button>
-        </div>
-      </section>
+    <!-- Skyrim-style floating cart -->
+    <div id="skyrim-cart">
+      <h3>Inventory / Cart</h3>
+      <ul id="cart-items"></ul>
+      <p>Total: £<span id="cart-total">0.00</span></p>
+      <button onclick="checkout()">Checkout</button>
+    </div>
+  </section>
 
-      <!-- OFFERS SECTION -->
-      <section id="offers" hidden>
-        <h2>Offers</h2>
-        <ul>
-          <li>Happy Hour: 5–7pm, 50% off Arcade Drinks</li>
-          <li>Student Night: Show ID, get free fries</li>
-          <li>Weekend Tournament Bonus: Free Power-Up Shake</li>
-        </ul>
-      </section>
+  <!-- EVENTS SECTION -->
+  <section id="events" hidden>
+    <h2 class="events-header">🎉 EVENTS</h2>
+    <div class="events-list">
+      <div class="event-item">
+        <h3>BattlePass Boost Night</h3>
+        <p>Special XP multipliers & free power-ups!</p>
+      </div>
+      <div class="event-item">
+        <h3>Weekday Game Deal</h3>
+        <p>Free game session with any meal (Term time only)</p>
+      </div>
+      <div class="event-item">
+        <h3>Seasonal Mystery Event</h3>
+        <p>Rotating special challenges & surprises</p>
+      </div>
+      <div class="event-item">
+        <h3>Pokémon Go Adventure</h3>
+        <p>Join our augmented gaming event outdoors!</p>
+      </div>
+      <div class="event-item">
+        <h3>Board Game Night</h3>
+        <p>Classic and modern board games every week</p>
+      </div>
+      <!-- Add more events as needed -->
+    </div>
+  </section>
 
-      <!-- EVENTS SECTION -->
-      <section id="events" hidden>
-        <h2>Events</h2>
-        <ul>
-          <li>Friday Night: Smash Bros Tournament</li>
-          <li>Saturday: Retro Game Marathon</li>
-          <li>Sunday: VR Racing League</li>
-        </ul>
-      </section>
+  <!-- BATTLEPASS SECTION -->
+  <section id="battlepass" hidden>
+    <h2 class="bp-header">🛡️ BATTLEPASS</h2>
+    <p class="bp-level-display">Level: <span id="bp-level">1</span></p>
 
-      <!-- BATTLEPASS SECTION -->
-      <section id="battlepass" hidden>
-        <h2>Battlepass</h2>
-        <p>Level: <span id="bp-level">1</span></p>
-        <div id="xp-container">
-          <div id="xp-bar"></div>
-        </div>
-        <p>Earn points by ordering or visiting sections!</p>
-      </section>
+    <!-- Side-scrollable rewards list -->
+    <div class="bp-rewards-container">
+      <div class="bp-rewards-list" id="bp-rewards-list">
+        <!-- Rewards populated by JS -->
+      </div>
+    </div>
 
-      <!-- CALORIES & ALLERGENS -->
-      <section id="calories" hidden>
-        <h2>Calories & Allergens</h2>
-        <ul>
-          <li>Classic Burger: 650 kcal, contains gluten & dairy</li>
-          <li>Arcade Fries: 350 kcal, gluten-free</li>
-          <li>Power-Up Shake: 450 kcal, contains dairy</li>
-          <li>Pixel Pizza: 550 kcal, contains gluten & dairy</li>
-          <li>Turbo Tacos: 480 kcal, contains gluten</li>
-          <li>Health Potion Salad: 220 kcal, vegan</li>
-          <li>Boss-Level Burger: 900 kcal, contains gluten & dairy</li>
-          <li>Snack Combo: Mana Pack: 550 kcal, contains dairy & gluten</li>
-        </ul>
-      </section>
-    </main>
-  </div>
+    <!-- XP bar -->
+    <div id="xp-container">
+      <div id="xp-bar"></div>
+    </div>
 
+    <!-- Optional neon particles -->
+    <div id="bp-particles"></div>
+  </section>
+
+  <!-- CALORIES & ALLERGENS SECTION -->
+  <section id="calories" hidden>
+    <h2 class="cal-header">🍽️ NUTRITION & ALLERGENS</h2>
+    <table class="cal-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Calories</th>
+          <th>Allergens</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Classic Burger 🍔</td>
+          <td>550 kcal</td>
+          <td>Gluten, Dairy</td>
+        </tr>
+        <tr>
+          <td>Boss-Level Burger 🍔</td>
+          <td>850 kcal</td>
+          <td>Gluten, Dairy, Egg</td>
+        </tr>
+        <tr>
+          <td>Arcade Fries 🍟</td>
+          <td>320 kcal</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Power-Up Shake 🥤</td>
+          <td>250 kcal</td>
+          <td>Dairy</td>
+        </tr>
+        <tr>
+          <td>Level-Up Latte ☕</td>
+          <td>150 kcal</td>
+          <td>Dairy</td>
+        </tr>
+        <tr>
+          <td>Snack Combo: Mana Pack 🍔+🥤</td>
+          <td>600 kcal</td>
+          <td>Gluten, Dairy</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script src="app.js"></script>
 </body>
 </html>
