@@ -1,98 +1,206 @@
-document.addEventListener('DOMContentLoaded', () => {
+// ==========================
+// SAFE DOM READY
+// ==========================
+document.addEventListener("DOMContentLoaded", () => {
 
-    // Opening Screen
-    const openingScreen = document.getElementById('opening-screen');
-    const pressStartBtn = document.getElementById('press-start');
-    const mainPage = document.getElementById('main-page');
-    const fallingContainer = document.getElementById('falling-sprites');
+  // --------------------------
+  // SCREEN TRANSITION (FIXED)
+  // --------------------------
+  const openingScreen = document.getElementById("opening-screen");
+  const mainScreen = document.getElementById("main-screen");
+  const pressStartBtn = document.getElementById("press-start");
 
-    let spriteInterval = null;
+  pressStartBtn.addEventListener("click", () => {
+    openingScreen.classList.remove("active");
+    mainScreen.classList.add("active");
+    clearInterval(fallInterval);
+  });
 
-    pressStartBtn.addEventListener('click', () => {
-        // Stop falling animation
-        if (spriteInterval) clearInterval(spriteInterval);
-        fallingContainer.innerHTML = '';
+  // --------------------------
+  // FALLING PIXEL ITEMS
+  // --------------------------
+  const fallContainer = document.getElementById("falling-container");
+  const fallItems = ["🍔","🍕","🍟","🍹","🥤","🎮","🕹","👾","🍺","🍩"];
 
-        // Transition screens
-        openingScreen.classList.add('hidden');
-        mainPage.classList.remove('hidden');
+  function spawnFallItem() {
+    const item = document.createElement("span");
+    item.textContent = fallItems[Math.floor(Math.random() * fallItems.length)];
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.animationDuration = (3 + Math.random() * 4) + "s";
+    fallContainer.appendChild(item);
+
+    setTimeout(() => item.remove(), 7000);
+  }
+
+  const fallInterval = setInterval(spawnFallItem, 500);
+
+  // --------------------------
+  // MODAL SYSTEM
+  // --------------------------
+  const modal = document.getElementById("modal");
+  const modalContent = document.getElementById("modal-content");
+  const modalClose = document.getElementById("modal-close");
+
+  function openModal(html) {
+    modalContent.innerHTML = html;
+    modal.classList.remove("hidden");
+  }
+
+  modalClose.onclick = () => modal.classList.add("hidden");
+
+  // --------------------------
+  // CART SYSTEM
+  // --------------------------
+  let cart = [];
+  const cartIcon = document.getElementById("cart-icon");
+  const cartPanel = document.getElementById("cart-panel");
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  const closeCart = document.getElementById("close-cart");
+
+  cartIcon.onclick = () => cartPanel.classList.add("open");
+  closeCart.onclick = () => cartPanel.classList.remove("open");
+
+  function updateCart() {
+    cartItems.innerHTML = "";
+    let total = 0;
+
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      const div = document.createElement("div");
+      div.textContent = `${item.name} x${item.qty} (£${item.price})`;
+      cartItems.appendChild(div);
     });
 
-    // Falling Sprites (ONLY on opening screen)
-    function spawnFallingSprites() {
-        spriteInterval = setInterval(() => {
-            const sprite = document.createElement('div');
-            sprite.style.position = 'absolute';
-            sprite.style.left = Math.random() * 100 + '%';
-            sprite.style.top = '-30px';
-            sprite.style.width = '20px';
-            sprite.style.height = '20px';
-            sprite.style.background = '#0ff';
-            sprite.style.opacity = '0.8';
+    cartTotal.textContent = "£" + total.toFixed(2);
+    updateXP(total);
+  }
 
-            fallingContainer.appendChild(sprite);
+  function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) existing.qty++;
+    else cart.push({ name, price, qty: 1 });
+    updateCart();
+  }
 
-            let y = -30;
-            const fall = setInterval(() => {
-                y += 2;
-                sprite.style.top = y + 'px';
+  // --------------------------
+  // XP / BATTLE PASS
+  // --------------------------
+  let xp = 0;
+  let level = 1;
 
-                if (y > window.innerHeight) {
-                    clearInterval(fall);
-                    sprite.remove();
-                }
-            }, 16);
-        }, 250);
+  function xpRequired(lvl) {
+    return 100 + (lvl - 1) * 50;
+  }
+
+  function updateXP(totalSpend) {
+    xp = Math.floor(totalSpend * 2.5);
+  }
+
+  function battlePassHTML() {
+    let html = `<h2>Battle Pass</h2>
+      <p>Level ${level} — XP ${xp}/${xpRequired(level)}</p>
+      <progress value="${xp}" max="${xpRequired(level)}"></progress>
+      <ul>`;
+
+    for (let i = 1; i <= 30; i++) {
+      html += `<li>Level ${i}: Reward ${i}</li>`;
     }
+    html += "</ul>";
+    return html;
+  }
 
-    spawnFallingSprites();
+  // --------------------------
+  // MENUS DATA
+  // --------------------------
+  const drinks = [
+    ["Critical Hit IPA", 6.5],
+    ["Mana Potion", 7],
+    ["Pixel Punch", 8],
+    ["Boss Fight Bourbon", 7.5],
+    ["Respawn Rum", 7],
+    ["Lag Spike Lager", 5.5],
+    ["Stealth Gin", 6.5],
+    ["XP Boost Shot", 4],
+    ["Neon Night Vodka", 6],
+    ["Final Boss Cocktail", 9],
+    ["8-Bit Cola", 3],
+    ["Health Regen Fizz", 3],
+    ["AFK Lemonade", 2.8],
+    ["Power-Up Energy", 3.5],
+    ["Noob Orange", 2.5]
+  ];
 
-    // Menu Handling
-    const icons = document.querySelectorAll('.icon');
-    const menuDisclaimer = document.getElementById('menu-disclaimer');
-    const agreeBtn = document.getElementById('agree-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
-    let pendingMenu = null;
+  const food = Array.from({ length: 20 }, (_, i) => [
+    `Player ${i + 1} Burger`,
+    8 + (i % 5)
+  ]);
 
-    icons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            const menu = icon.dataset.menu;
-            if (menu === 'drinks' || menu === 'food') {
-                pendingMenu = menu;
-                menuDisclaimer.classList.remove('hidden');
-            } else {
-                openPanel(menu);
-            }
-        });
+  // --------------------------
+  // SECTION HANDLER
+  // --------------------------
+  document.querySelectorAll(".icon-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const section = btn.dataset.section;
+
+      if (section === "drinks") {
+        openModal(disclaimerHTML("Drinks", drinks));
+      }
+
+      if (section === "food") {
+        openModal(disclaimerHTML("Food", food));
+      }
+
+      if (section === "events") {
+        openModal(`<h2>Events</h2>
+          <ul>
+            <li>Street Fighter Tournament</li>
+            <li>Mario Kart League</li>
+            <li>Board Game Bash</li>
+            <li>Pokémon GO Night</li>
+            <li>Retro Arcade Championship</li>
+            <li>Live DJ + Chiptune</li>
+            <li>DnD One-Shot</li>
+            <li>Cosplay Party</li>
+          </ul>`);
+      }
+
+      if (section === "battlepass") {
+        openModal(battlePassHTML());
+      }
+
+      if (section === "nutrition") {
+        openModal("<h2>Nutrition</h2><p>Calories and nutrients listed per item.</p>");
+      }
+
+      if (section === "allergens") {
+        openModal(`
+          <div class="allergen-table">
+            <h2>Allergen Information</h2>
+            <table>
+              <tr><th>Item</th><th>Allergens</th></tr>
+              <tr><td>Burgers</td><td>Gluten, Dairy</td></tr>
+              <tr><td>Cocktails</td><td>Sulphites</td></tr>
+              <tr><td>Desserts</td><td>Dairy, Eggs</td></tr>
+            </table>
+          </div>
+        `);
+      }
     });
+  });
 
-    agreeBtn.addEventListener('click', () => {
-        menuDisclaimer.classList.add('hidden');
-        openPanel(pendingMenu);
-        pendingMenu = null;
-    });
+  function disclaimerHTML(title, items) {
+    return `
+      <h2>${title} Notice</h2>
+      <p>Allergen info available in the Allergens section.</p>
+      <button id="agree">I Agree</button>
+    `;
+  }
 
-    cancelBtn.addEventListener('click', () => {
-        menuDisclaimer.classList.add('hidden');
-        pendingMenu = null;
-    });
-
-    function openPanel(panel) {
-        document.querySelectorAll(
-            '.menu-panel, #events-panel, #battlepass-panel, #nutrients-panel, #allergens-panel'
-        ).forEach(p => p.classList.add('hidden'));
-
-        const map = {
-            drinks: 'drinks-menu',
-            food: 'food-menu',
-            events: 'events-panel',
-            battlepass: 'battlepass-panel',
-            nutrients: 'nutrients-panel',
-            allergens: 'allergens-panel'
-        };
-
-        const target = document.getElementById(map[panel]);
-        if (target) target.classList.remove('hidden');
+  modal.addEventListener("click", e => {
+    if (e.target.id === "agree") {
+      modalContent.innerHTML += "<p>Menu loaded.</p>";
     }
+  });
 
 });
