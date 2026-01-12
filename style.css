@@ -70,27 +70,94 @@ body {
   25%,75% { opacity: 0; }
 }
 
-/* MAIN APP STYLES */
-header {
+/* MAIN APP STYLING */
+.app-logo {
+  font-size: 2rem;
   text-align: center;
-  padding: 1rem;
-  background: #111;
+  color: #00ffcc;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
 }
 
-nav {
+.app-tagline {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+/* IN-GAME NAV BUTTONS */
+.arcade-nav {
   display: flex;
-  background: #00ffcc;
+  justify-content: space-around;
+  background: #111;
+  padding: 0.5rem;
+  border-bottom: 2px solid #00ffcc;
 }
 
-nav button {
+.arcade-btn {
   flex: 1;
-  padding: 1rem;
-  border: none;
-  background: none;
-  font-family: inherit;
+  margin: 0 0.3rem;
+  padding: 1rem 0;
+  font-family: 'Courier New', monospace;
   font-weight: bold;
+  color: #00ffcc;
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s all;
+  text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
 }
 
-section {
-  padding: 1.5rem;
+.arcade-btn:hover {
+  background: #00ffcc;
+  color: black;
+  text-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 180px;
+  text-align: center;
+}
+
+.card h3 {
+  margin: 0.5rem 0;
+  color: #00ffcc;
+}
+
+.card p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.price {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: #ff00ff;
+}
+
+section ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+section li {
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
 }
