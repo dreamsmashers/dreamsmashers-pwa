@@ -1,134 +1,196 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #fff;
+/* General Reset */
+body, html {
     margin: 0;
     padding: 0;
-}
-
-.container {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    position: relative;
-}
-
-h1, h2 {
-    margin-bottom: 10px;
-}
-
-/* Buttons */
-button {
-    background-color: #ff3c00;
+    font-family: 'Press Start 2P', monospace;
+    background: #000;
     color: #fff;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
+}
+
+/* Retro Opening Screen */
+#opening-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(#000, #111);
+    position: relative;
+    overflow: hidden;
+}
+
+.retro-title {
+    font-size: 4rem;
+    color: #0ff;
+    text-shadow: 2px 2px #f0f;
+}
+
+#press-start {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    background: #111;
+    color: #0f0;
+    border: 2px solid #0f0;
     cursor: pointer;
-    margin: 10px 0;
-    border-radius: 6px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+#falling-sprites {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Main Page */
+.hidden { display: none; }
+#main-page { padding: 1rem; }
+#menu-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1rem;
+}
+
+.icon {
+    padding: 1rem;
+    background: #111;
+    border: 2px solid #0ff;
+    cursor: pointer;
+    text-align: center;
+    width: 100px;
+    border-radius: 5px;
     transition: 0.2s;
 }
 
-button:hover {
-    background-color: #e63600;
-}
+.icon:hover { transform: scale(1.1); border-color: #f0f; }
 
-/* Menu items */
-.menu-item {
-    background-color: #333;
-    margin: 5px 0;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.menu-item:hover {
-    background-color: #444;
-}
-
-/* Hidden elements */
-.hidden {
-    display: none;
-}
-
-/* Floating cart button */
-#floatingCartButton {
+/* Overlay Disclaimer */
+.overlay {
     position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ff3c00;
-    border: none;
-    color: #fff;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 6px;
-    z-index: 1000;
-}
-
-#floatingCartButton:hover {
-    background-color: #e63600;
-}
-
-/* Floating cart panel */
-#floatingCart {
-    position: fixed;
-    right: 0;
-    top: 50px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #111;
+    border: 2px solid #0ff;
+    padding: 2rem;
+    z-index: 10;
     width: 300px;
-    max-height: 70%;
-    background-color: #222;
-    color: #fff;
-    box-shadow: -2px 0 15px rgba(0,0,0,0.6);
-    padding: 20px;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.overlay button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: 2px solid #0ff;
+    background: #000;
+    color: #0ff;
+}
+
+/* Menu Panels */
+.menu-panel {
+    background: #111;
+    border: 2px solid #0ff;
+    padding: 1rem;
+    margin-top: 1rem;
+    max-height: 400px;
     overflow-y: auto;
-    z-index: 999;
-    border-radius: 6px 0 0 6px;
-    cursor: grab;
 }
 
-#floatingCart.active {
-    transform: translateX(0);
+/* Battle Pass */
+#battlepass-panel h2 {
+    color: #f0f;
+    text-align: center;
 }
 
-/* Cart content */
-#cartItems {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+#xp-bar {
+    width: 80%;
+    height: 30px;
+    background: #222;
+    border: 2px solid #0ff;
+    margin: 1rem auto;
+    position: relative;
 }
 
-#cartItems li {
-    padding: 8px 0;
-    border-bottom: 1px solid #444;
+#xp-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #0ff, #f0f);
 }
 
-/* Drag styling */
-#floatingCart.dragging {
-    cursor: grabbing;
+#rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
-/* Notifications panel */
-#notificationPanel {
+.reward-slot {
+    border: 2px solid #0ff;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Cart */
+#cart-icon {
     position: fixed;
-    top: 20px;
-    right: 50%;
-    transform: translateX(50%);
-    background-color: #ff3c00;
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    z-index: 2000;
+    right: 10px;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    background: url('cart-icon.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 5;
 }
 
-#notificationPanel.show {
-    opacity: 1;
-    transform: translateX(50%) translateY(0);
+#cart-panel {
+    position: fixed;
+    right: 70px;
+    top: 20%;
+    width: 300px;
+    background: #111;
+    border: 2px solid #0ff;
+    padding: 1rem;
+    z-index: 6;
 }
+
+#cart-items { max-height: 300px; overflow-y: auto; }
+#cart-total { margin-top: 1rem; font-weight: bold; text-align: right; }
+#cart-trash { margin-top: 1rem; text-align: center; cursor: pointer; border-top: 1px solid #0ff; padding-top: 0.5rem; }
+
+/* Allergens - Professional Style */
+#allergens-panel {
+    background: #f9f9f9;
+    color: #000;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#allergens-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#allergens-panel th, #allergens-panel td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+#allergens-panel tr:hover { background-color: #eee; }
