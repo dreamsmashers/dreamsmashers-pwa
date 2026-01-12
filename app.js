@@ -52,6 +52,7 @@ startBtn.addEventListener("click", () => {
   app.hidden=false;
 });
 
+// SECTION SWITCHING
 function showSection(id){
   document.querySelectorAll("main section").forEach(s=>{
     s.hidden = s.id !== id;
