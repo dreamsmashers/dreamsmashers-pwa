@@ -1,196 +1,208 @@
-/* General Reset */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Press Start 2P', monospace;
-    background: #000;
-    color: #fff;
+/* =========================
+   GLOBAL RESET & BASE
+========================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P', monospace;
 }
 
-/* Retro Opening Screen */
+body {
+  background: #0b0b0b;
+  color: #fff;
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* =========================
+   SCREENS
+========================= */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* =========================
+   OPENING SCREEN
+========================= */
 #opening-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(#000, #111);
-    position: relative;
-    overflow: hidden;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
 }
 
-.retro-title {
-    font-size: 4rem;
-    color: #0ff;
-    text-shadow: 2px 2px #f0f;
+.logo {
+  font-size: 42px;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px #ff2d95;
 }
 
-#press-start {
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    font-size: 1.5rem;
-    background: #111;
-    color: #0f0;
-    border: 2px solid #0f0;
-    cursor: pointer;
-    animation: pulse 1s infinite;
+.press-start {
+  font-size: 16px;
+  padding: 16px 28px;
+  border: 3px solid #fff;
+  animation: blink 1.2s infinite;
+  background: #000;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
-#falling-sprites {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+/* Falling pixel items */
+#falling-container span {
+  position: absolute;
+  top: -40px;
+  font-size: 24px;
+  animation: fall linear forwards;
 }
 
-/* Main Page */
-.hidden { display: none; }
-#main-page { padding: 1rem; }
-#menu-icons {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
+@keyframes fall {
+  from { transform: translateY(-40px); }
+  to { transform: translateY(110vh); }
 }
 
-.icon {
-    padding: 1rem;
-    background: #111;
-    border: 2px solid #0ff;
-    cursor: pointer;
-    text-align: center;
-    width: 100px;
-    border-radius: 5px;
-    transition: 0.2s;
+/* =========================
+   MAIN SCREEN
+========================= */
+#main-screen {
+  background: linear-gradient(180deg, #111, #050505);
 }
 
-.icon:hover { transform: scale(1.1); border-color: #f0f; }
-
-/* Overlay Disclaimer */
-.overlay {
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: #111;
-    border: 2px solid #0ff;
-    padding: 2rem;
-    z-index: 10;
-    width: 300px;
-    text-align: center;
+/* =========================
+   ICON GRID
+========================= */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.overlay button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border: 2px solid #0ff;
-    background: #000;
-    color: #0ff;
+.icon-btn {
+  padding: 20px;
+  background: #1e1e1e;
+  border: 3px solid #444;
+  transition: transform 0.2s, background 0.2s;
 }
 
-/* Menu Panels */
-.menu-panel {
-    background: #111;
-    border: 2px solid #0ff;
-    padding: 1rem;
-    margin-top: 1rem;
-    max-height: 400px;
-    overflow-y: auto;
+.icon-btn:hover {
+  background: #2b2b2b;
+  transform: scale(1.05);
 }
 
-/* Battle Pass */
-#battlepass-panel h2 {
-    color: #f0f;
-    text-align: center;
-}
-
-#xp-bar {
-    width: 80%;
-    height: 30px;
-    background: #222;
-    border: 2px solid #0ff;
-    margin: 1rem auto;
-    position: relative;
-}
-
-#xp-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(to right, #0ff, #f0f);
-}
-
-#rewards-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.reward-slot {
-    border: 2px solid #0ff;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-}
-
-/* Cart */
+/* =========================
+   CART
+========================= */
 #cart-icon {
-    position: fixed;
-    right: 10px;
-    top: 50%;
-    width: 50px;
-    height: 50px;
-    background: url('cart-icon.png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    z-index: 5;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-size: 32px;
+  background: #1a1a1a;
+  padding: 10px;
+  border: 2px solid #777;
 }
 
 #cart-panel {
-    position: fixed;
-    right: 70px;
-    top: 20%;
-    width: 300px;
-    background: #111;
-    border: 2px solid #0ff;
-    padding: 1rem;
-    z-index: 6;
+  position: fixed;
+  right: -320px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #111;
+  border-left: 4px solid #555;
+  padding: 16px;
+  transition: right 0.3s ease;
 }
 
-#cart-items { max-height: 300px; overflow-y: auto; }
-#cart-total { margin-top: 1rem; font-weight: bold; text-align: right; }
-#cart-trash { margin-top: 1rem; text-align: center; cursor: pointer; border-top: 1px solid #0ff; padding-top: 0.5rem; }
-
-/* Allergens - Professional Style */
-#allergens-panel {
-    background: #f9f9f9;
-    color: #000;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    font-family: Arial, sans-serif;
-    max-height: 400px;
-    overflow-y: auto;
+#cart-panel.open {
+  right: 0;
 }
 
-#allergens-panel table {
-    width: 100%;
-    border-collapse: collapse;
+#cart-items {
+  margin-top: 10px;
+  min-height: 200px;
 }
 
-#allergens-panel th, #allergens-panel td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 
-#allergens-panel tr:hover { background-color: #eee; }
+#cart-bin {
+  margin-top: 20px;
+  border: 2px dashed #666;
+  padding: 10px;
+  text-align: center;
+}
+
+/* =========================
+   MODAL
+========================= */
+#modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modal.hidden {
+  display: none;
+}
+
+#modal-content {
+  background: #1b1b1b;
+  padding: 20px;
+  border: 4px solid #666;
+  max-width: 90%;
+}
+
+#modal-close {
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid #aaa;
+}
+
+/* =========================
+   ALLERGENS (PRO STYLE)
+========================= */
+.allergen-table {
+  font-family: Arial, sans-serif;
+  color: #111;
+  background: #f8f8f8;
+  padding: 20px;
+}
+
+.allergen-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.allergen-table th,
+.allergen-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.allergen-table th {
+  background: #eee;
+}
